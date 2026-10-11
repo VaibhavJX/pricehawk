@@ -1,0 +1,32 @@
+# Render deployment configuration
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  # ── Backend (FastAPI) ──────────────────────────────────────
+  - type: web
+    name: pricehawk-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free          # upgrade to starter ($7/mo) for always-on
+    region: singapore   # closest to India; or use oregon / frankfurt
+    healthCheckPath: /health
+    envVars:
+      - key: MONGODB_URI
+        sync: false     # set manually in Render dashboard
+      - key: DATABASE_NAME
+        value: pricehawk
+      - key: SECRET_KEY
+        generateValue: true   # Render auto-generates a secure random value
+      - key: FRONTEND_URL
+        sync: false     # set to your Vercel URL after deploying frontend
+      - key: SENDGRID_API_KEY
+        sync: false     # optional — email notifications
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false     # optional — Telegram notifications
+      - key: VAPID_PUBLIC_KEY
+        sync: false     # optional — browser push
+      - key: VAPID_PRIVATE_KEY
+        sync: false     # optional — browser push
+      - key: VAPID_CLAIMS_EMAIL
+        sync: false     # optional — browser push

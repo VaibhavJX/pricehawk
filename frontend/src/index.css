@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────────── */
+:root {
+  --ios-blue: #007aff;
+  --ios-green: #34c759;
+  --ios-red: #ff3b30;
+  --ios-orange: #ff9500;
+  --ios-purple: #af52de;
+  --ios-teal: #5ac8fa;
+  --ios-indigo: #5856d6;
+
+  --bg-primary: #f2f2f7;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e5e5ea;
+  --text-primary: #1c1c1e;
+  --text-secondary: #3a3a3c;
+  --text-tertiary: #636366;
+  --separator: rgba(60, 60, 67, 0.12);
+  --fill-glass: rgba(255, 255, 255, 0.8);
+
+  --radius-apple: 16px;
+  --radius-apple-lg: 24px;
+  --shadow-apple: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-apple-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+.dark {
+  --bg-primary: #000000;
+  --bg-secondary: #1c1c1e;
+  --bg-tertiary: #2c2c2e;
+  --text-primary: #ffffff;
+  --text-secondary: #ebebf5;
+  --text-tertiary: #8e8e93;
+  --separator: rgba(84, 84, 88, 0.6);
+  --fill-glass: rgba(28, 28, 30, 0.8);
+  --shadow-apple: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-apple-lg: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ─── Base Styles ─────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'SF Pro Display', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* ─── Custom Scrollbar ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 100px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ─── Glass Morphism ─────────────────────────────────────── */
+.glass {
+  background: var(--fill-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--separator);
+}
+
+.glass-dark {
+  background: rgba(28, 28, 30, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Skeleton Shimmer ───────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    rgba(255, 255, 255, 0.6) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    #2c2c2e 25%,
+    rgba(255, 255, 255, 0.06) 50%,
+    #2c2c2e 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+/* ─── Card Styles ─────────────────────────────────────────── */
+.card {
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-apple);
+  box-shadow: var(--shadow-apple);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-apple-lg);
+}
+
+/* ─── Smooth Transitions for Dark Mode ─────────────────── */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+/* Override for interactive elements to avoid transition on hover effects */
+button,
+a,
+input,
+select,
+textarea {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 0.15s;
+}
+
+/* ─── Input Styles ───────────────────────────────────────── */
+.input-apple {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  font-size: 17px;
+  width: 100%;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-apple:focus {
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.2);
+}
+
+/* ─── Button Styles ─────────────────────────────────────── */
+.btn-primary {
+  background-color: var(--ios-blue);
+  color: white;
+  border-radius: 14px;
+  padding: 14px 24px;
+  font-weight: 600;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+  opacity: 0.8;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Utility ────────────────────────────────────────────── */
+.text-gradient-blue {
+  background: linear-gradient(135deg, #007aff, #5856d6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-green {
+  background: linear-gradient(135deg, #34c759, #30d158);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── Page Transitions ───────────────────────────────────── */
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.page-exit {
+  opacity: 1;
+}
+
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* ─── Safe Area for Mobile ───────────────────────────────── */
+.pb-safe {
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+.pt-safe {
+  padding-top: max(16px, env(safe-area-inset-top));
+}
